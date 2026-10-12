@@ -11,7 +11,7 @@ One thesis, three plugins, zero LLM calls in the trust path:
 |---|---|---|
 | [dsh-read-guard](https://github.com/zhengqiuyang/dsh-read-guard) | what the agent **reads** | Prompt-injection interception in the `tools/post-execute` waterfall: file reads, repo searches, and web fetches are scanned before they enter model context — quarantined, blocked, or passed. Engine: [repo-inject-guard](https://github.com/zhengqiuyang/repo-inject-guard) |
 | [dsh-pr-gate](https://github.com/zhengqiuyang/dsh-pr-gate) | what the agent **writes** | Deterministic write gate: scope policy denies out-of-scope writes before they touch the disk, residue rules scan the written text, a content-hashed JSONL ledger records every decision. The CI gate moved to the moment of the write. Engine: [agent-pr-gate](https://github.com/zhengqiuyang/agent-pr-gate) |
-| [dsh-attest](https://github.com/zhengqiuyang/dsh-attest) | what the agent **did** | Signed chain-of-custody: every watched tool result appends a hash-chained, ed25519-signed record. Tamper with a line, break the chain; delete the tail, break the published head. Engine: [agent-attest](https://github.com/zhengqiuyang/agent-attest) |
+| [dsh-attest-chain](https://github.com/zhengqiuyang/dsh-attest-chain) | what the agent **did** | Signed chain-of-custody: every watched tool result appends a hash-chained, ed25519-signed record. Tamper with a line, break the chain; delete the tail, break the published head. Engine: [agent-attest](https://github.com/zhengqiuyang/agent-attest) |
 | [dsh-mcp-test](https://github.com/zhengqiuyang/dsh-mcp-test) | what the agent **can call** | Tool-surface snapshot and drift gate: the full visible registry (first-party, plugin, MCP tools) is baselined and diffed — upgrades that silently change the model-visible surface fail loud. Methodology: [mcp-test](https://github.com/zhengqiuyang/mcp-test) |
 | [dsh-janitor](https://github.com/zhengqiuyang/dsh-janitor) | what the agent **leaves behind** | Deterministic cleanup plans for session debris (plan docs, scratch scripts): scan → verdicts with evidence → review. The janitor is never an agent; v0.1 never deletes. Engine: [agent-janitor](https://github.com/zhengqiuyang/agent-janitor) |
 | [dsh-egress-gate](https://github.com/zhengqiuyang/dsh-egress-gate) | **where data may flow** | Destination allowlist for web fetches/searches, denied in `tools/pre-execute` before they run; shell fetch-verbs observed (enforcement opt-in). The other half of exfil defense: content scanning guards what enters, this guards where it leaves. |
@@ -26,14 +26,14 @@ CI, and an honest kill-criteria section.
 ## Install the family
 
 ```sh
-dsh plugin --profile default add github:zhengqiuyang/dsh-read-guard
-dsh plugin --profile default add github:zhengqiuyang/dsh-pr-gate
-dsh plugin --profile default add github:zhengqiuyang/dsh-attest
-dsh plugin --profile default add github:zhengqiuyang/dsh-mcp-test
-dsh plugin --profile default add github:zhengqiuyang/dsh-janitor
-dsh plugin --profile default add github:zhengqiuyang/dsh-egress-gate
-dsh plugin --profile default add github:zhengqiuyang/dsh-prompt-drift
-dsh plugin --profile default add github:zhengqiuyang/dsh-freeze
+dsh plugin --profile default add dsh-read-guard
+dsh plugin --profile default add dsh-pr-gate
+dsh plugin --profile default add dsh-attest-chain
+dsh plugin --profile default add dsh-mcp-test
+dsh plugin --profile default add dsh-janitor
+dsh plugin --profile default add dsh-egress-gate
+dsh plugin --profile default add dsh-prompt-drift
+dsh plugin --profile default add dsh-freeze
 ```
 
 All ship prebuilt `lib/` — git installs need no build step and no
@@ -56,7 +56,7 @@ ecosystem today.
 ## Roadmap (next in the family)
 
 - **dsh-bench** has shipped as its own repo —
-  [zhengqiuyang/dsh-bench](https://github.com/zhengqiuyang/dsh-bench): bench
+  [zhengqiuyang/dsh-bench](https://github.com/zhengqiuyang/dsh-bench-local): bench
   your dsh configuration against your own tasks via `dsh headless`
   (live-verified). Its mining pillar (tasks from git history, graded by your
   own tests) ports agentbench-local next.
