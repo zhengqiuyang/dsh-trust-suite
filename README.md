@@ -55,11 +55,11 @@ ecosystem today.
 
 ## Roadmap (next in the family)
 
-- **dsh-bench** — port of [agentbench-local](https://github.com/zhengqiuyang/agentbench-local):
-  SWE-bench for YOUR repo, on YOUR machine; mines tasks from git history,
-  grades with your own tests, drives agents via `dsh headless` (verified
-  working; blocked on a configured API key for live runs). Answers "which
-  model/plugin config for this repo".
+- **dsh-bench** has shipped as its own repo —
+  [zhengqiuyang/dsh-bench](https://github.com/zhengqiuyang/dsh-bench): bench
+  your dsh configuration against your own tasks via `dsh headless`
+  (live-verified). Its mining pillar (tasks from git history, graded by your
+  own tests) ports agentbench-local next.
 - **skills lockfile** — hermetic pinning for skills/plugins à la
   [vendor-skills](https://github.com/zhengqiuyang/vendor-skills); today's
   supply-chain plugins all static-scan, none reproducibly pin.
