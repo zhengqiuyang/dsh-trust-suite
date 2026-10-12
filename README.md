@@ -14,11 +14,14 @@ One thesis, three plugins, zero LLM calls in the trust path:
 | [dsh-attest](https://github.com/zhengqiuyang/dsh-attest) | what the agent **did** | Signed chain-of-custody: every watched tool result appends a hash-chained, ed25519-signed record. Tamper with a line, break the chain; delete the tail, break the published head. Engine: [agent-attest](https://github.com/zhengqiuyang/agent-attest) |
 | [dsh-mcp-test](https://github.com/zhengqiuyang/dsh-mcp-test) | what the agent **can call** | Tool-surface snapshot and drift gate: the full visible registry (first-party, plugin, MCP tools) is baselined and diffed — upgrades that silently change the model-visible surface fail loud. Methodology: [mcp-test](https://github.com/zhengqiuyang/mcp-test) |
 | [dsh-janitor](https://github.com/zhengqiuyang/dsh-janitor) | what the agent **leaves behind** | Deterministic cleanup plans for session debris (plan docs, scratch scripts): scan → verdicts with evidence → review. The janitor is never an agent; v0.1 never deletes. Engine: [agent-janitor](https://github.com/zhengqiuyang/agent-janitor) |
+| [dsh-egress-gate](https://github.com/zhengqiuyang/dsh-egress-gate) | **where data may flow** | Destination allowlist for web fetches/searches, denied in `tools/pre-execute` before they run; shell fetch-verbs observed (enforcement opt-in). The other half of exfil defense: content scanning guards what enters, this guards where it leaves. |
+| [dsh-prompt-drift](https://github.com/zhengqiuyang/dsh-prompt-drift) | what the model is **told** | System-prompt surface drift gate: every section contributed by any plugin/preset is hashed and baselined; a silent rewrite of the prompt fails loud. |
+| [dsh-freeze](https://github.com/zhengqiuyang/dsh-freeze) | what exactly is **running** | Hermetic composition lock: the profile's dependencies, bundle order, lockfile hash, and patch layer are fingerprinted; booting a drifted composition warns — or fails under `strict` (the `--frozen` posture for CI). |
 
-Read + write + do + call + leave-behind: the five channels through which an
-agent session can go wrong, each gated by a deterministic rule engine with
-its own upstream test suite, Windows+Linux CI, and an honest kill-criteria
-section.
+Read + write + do + call + leave-behind + egress + told + running: the eight
+channels through which an agent session can go wrong, each gated by a
+deterministic rule engine with its own upstream test suite, Windows+Linux
+CI, and an honest kill-criteria section.
 
 ## Install the family
 
@@ -28,12 +31,14 @@ dsh plugin --profile default add github:zhengqiuyang/dsh-pr-gate
 dsh plugin --profile default add github:zhengqiuyang/dsh-attest
 dsh plugin --profile default add github:zhengqiuyang/dsh-mcp-test
 dsh plugin --profile default add github:zhengqiuyang/dsh-janitor
+dsh plugin --profile default add github:zhengqiuyang/dsh-egress-gate
+dsh plugin --profile default add github:zhengqiuyang/dsh-prompt-drift
+dsh plugin --profile default add github:zhengqiuyang/dsh-freeze
 ```
 
-Each also installs standalone as an npm tarball; each ships its own config in
-`cordis.patch.yml`. They compose without interference (different pipeline
-stages: read-guard observes results, pr-gate gates writes, attest records
-everything, mcp-test watches the registry, janitor scans on demand).
+All ship prebuilt `lib/` — git installs need no build step and no
+`allowBuilds` authorization. Each ships its own config in `cordis.patch.yml`
+and composes without interference (different pipeline stages).
 
 ## Why a family, and against whom
 
@@ -52,9 +57,10 @@ ecosystem today.
 
 - **dsh-bench** — port of [agentbench-local](https://github.com/zhengqiuyang/agentbench-local):
   SWE-bench for YOUR repo, on YOUR machine; mines tasks from git history,
-  grades with your own tests, drives agents via `dsh headless`. Answers
-  "which model/plugin config for this repo".
-- **skills lockfile** — hermetic pinning (`--frozen`) for skills/plugins à la
+  grades with your own tests, drives agents via `dsh headless` (verified
+  working; blocked on a configured API key for live runs). Answers "which
+  model/plugin config for this repo".
+- **skills lockfile** — hermetic pinning for skills/plugins à la
   [vendor-skills](https://github.com/zhengqiuyang/vendor-skills); today's
   supply-chain plugins all static-scan, none reproducibly pin.
 - **mcp-test probe pillar** — behavioral + injection probes against running
