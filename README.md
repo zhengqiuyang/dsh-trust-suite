@@ -40,6 +40,10 @@ All ship prebuilt `lib/` — git installs need no build step and no
 `allowBuilds` authorization. Each ships its own config in `cordis.patch.yml`
 and composes without interference (different pipeline stages).
 
+## Second runtime: OpenCode
+
+The family is expanding beyond dsh — [oc-read-guard](https://github.com/zhengqiuyang/oc-read-guard) ports the read-channel guard to [OpenCode](https://opencode.ai) (tool.execute.after, live-verified quarantine in real sessions: the model reports the injection indicators and refuses to comply). One engine, every harness.
+
 ## Why a family, and against whom
 
 The dsh security lane (checked 2026-10-12) is a long tail without a winner:
