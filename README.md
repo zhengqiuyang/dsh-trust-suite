@@ -18,7 +18,9 @@ One thesis, three plugins, zero LLM calls in the trust path:
 | [dsh-prompt-drift](https://github.com/zhengqiuyang/dsh-prompt-drift) | what the model is **told** | System-prompt surface drift gate: every section contributed by any plugin/preset is hashed and baselined; a silent rewrite of the prompt fails loud. |
 | [dsh-freeze](https://github.com/zhengqiuyang/dsh-freeze) | what exactly is **running** | Hermetic composition lock: the profile's dependencies, bundle order, lockfile hash, and patch layer are fingerprinted; booting a drifted composition warns — or fails under `strict` (the `--frozen` posture for CI). |
 
-Read + write + do + call + leave-behind + egress + told + running: the eight
+| [dsh-compaction-guard](https://github.com/zhengqiuyang/dsh-compaction-guard) | what the agent **forgets** | Compaction integrity: directive lines from the compacted range are extracted and verified against the summary — verbatim or in substance; every constraint the agent silently forgot is reported and ledgered. |
+
+Read + write + do + call + leave-behind + egress + told + running / remembered: the eight
 channels through which an agent session can go wrong, each gated by a
 deterministic rule engine with its own upstream test suite, Windows+Linux
 CI, and an honest kill-criteria section.
