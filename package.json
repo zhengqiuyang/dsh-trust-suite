@@ -1,27 +1,17 @@
 {
   "name": "dsh-trust-suite",
-  "version": "0.2.0",
-  "description": "The deterministic trust chain for DeepSeek Harness, installable in one command: read-guard + pr-gate + attest-chain + mcp-test + janitor + egress-gate + prompt-drift + freeze. Zero LLM calls in the trust path",
+  "version": "0.2.1",
+  "description": "The deterministic trust chain for DeepSeek Harness: read-guard + pr-gate + attest-chain + mcp-test + janitor + egress-gate + prompt-drift + freeze. Zero LLM calls in the trust path",
   "type": "module",
   "license": "MIT",
   "files": [
-    "cordis.patch.yml",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "install.sh"
   ],
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"
     }
-  },
-  "dependencies": {
-    "dsh-read-guard": "github:zhengqiuyang/dsh-read-guard",
-    "dsh-pr-gate": "github:zhengqiuyang/dsh-pr-gate",
-    "dsh-attest-chain": "github:zhengqiuyang/dsh-attest-chain",
-    "dsh-mcp-test": "github:zhengqiuyang/dsh-mcp-test",
-    "dsh-janitor": "github:zhengqiuyang/dsh-janitor",
-    "dsh-egress-gate": "github:zhengqiuyang/dsh-egress-gate",
-    "dsh-prompt-drift": "github:zhengqiuyang/dsh-prompt-drift",
-    "dsh-freeze": "github:zhengqiuyang/dsh-freeze"
   }
 }

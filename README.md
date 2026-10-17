@@ -25,24 +25,23 @@ CI, and an honest kill-criteria section.
 
 ## Install the family
 
+One command per plugin, all prebuilt (no `allowBuilds` step):
+
 ```sh
-dsh plugin --profile default add dsh-read-guard
-dsh plugin --profile default add dsh-pr-gate
-dsh plugin --profile default add dsh-attest-chain
-dsh plugin --profile default add dsh-mcp-test
-dsh plugin --profile default add dsh-janitor
-dsh plugin --profile default add dsh-egress-gate
-dsh plugin --profile default add dsh-prompt-drift
-dsh plugin --profile default add dsh-freeze
+curl -fsSL https://raw.githubusercontent.com/zhengqiuyang/dsh-trust-suite/main/install.sh | bash -s -- web
+# or explicitly:
+dsh plugin --profile web add github:zhengqiuyang/dsh-read-guard   # + pr-gate, attest-chain, mcp-test, janitor, egress-gate, prompt-drift, freeze
 ```
 
-All ship prebuilt `lib/` — git installs need no build step and no
-`allowBuilds` authorization. Each ships its own config in `cordis.patch.yml`
-and composes without interference (different pipeline stages).
+Once the family lands on npm, this becomes `dsh plugin add dsh-trust-suite`
+(the registry form enables the one-command meta-bundle; git subdependencies
+are blocked by pnpm's `blockExoticSubdeps` profile guard, by design).
 
-## Second runtime: OpenCode
-
-The family is expanding beyond dsh — [oc-read-guard](https://github.com/zhengqiuyang/oc-read-guard) ports the read-channel guard to [OpenCode](https://opencode.ai) (tool.execute.after, live-verified quarantine in real sessions: the model reports the injection indicators and refuses to comply). One engine, every harness.
+Each ships its own config in `cordis.patch.yml` and composes without
+interference (different pipeline stages: read-guard observes results,
+pr-gate gates writes, attest records everything, mcp-test watches the
+registry, egress-gate checks destinations, prompt-drift watches the
+assembled prompt, freeze pins the composition, janitor scans on demand).
 
 ## Why a family, and against whom
 
