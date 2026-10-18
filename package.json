@@ -1,14 +1,31 @@
 {
   "name": "dsh-trust-suite",
-  "version": "0.2.1",
-  "description": "The deterministic trust chain for DeepSeek Harness: read-guard + pr-gate + attest-chain + mcp-test + janitor + egress-gate + prompt-drift + freeze. Zero LLM calls in the trust path",
+  "version": "0.3.0",
+  "description": "The deterministic trust chain for DeepSeek Harness: read-guard + pr-gate + attest-chain + mcp-test + janitor + egress-gate + prompt-drift + freeze + compaction-guard. Zero LLM calls in the trust path",
   "type": "module",
   "license": "MIT",
   "files": [
     "README.md",
     "LICENSE",
-    "install.sh"
+    "install.sh",
+    "cordis.patch.yml"
   ],
+  "dependencies": {
+    "dsh-read-guard": "^0.2.0",
+    "dsh-pr-gate": "^0.1.0",
+    "dsh-attest-chain": "^0.1.0",
+    "dsh-mcp-test": "^0.1.0",
+    "dsh-janitor": "^0.1.0",
+    "dsh-egress-gate": "^0.1.0",
+    "dsh-prompt-drift": "^0.1.0",
+    "dsh-freeze": "^0.1.0",
+    "dsh-compaction-guard": "^0.1.0",
+    "dsh-bench-local": "^0.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/zhengqiuyang/dsh-trust-suite.git"
+  },
   "dsh": {
     "bundle": {
       "patch": "./cordis.patch.yml"

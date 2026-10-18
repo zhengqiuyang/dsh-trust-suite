@@ -27,17 +27,20 @@ CI, and an honest kill-criteria section.
 
 ## Install the family
 
-One command per plugin, all prebuilt (no `allowBuilds` step):
+One command, from npm (v0.3.0+, the whole family in a single meta-bundle):
+
+```sh
+dsh plugin --profile web add dsh-trust-suite
+```
+
+Prefer git checkouts? One command per plugin, all prebuilt (no `allowBuilds`
+step):
 
 ```sh
 curl -fsSL https://raw.githubusercontent.com/zhengqiuyang/dsh-trust-suite/main/install.sh | bash -s -- web
 # or explicitly:
 dsh plugin --profile web add github:zhengqiuyang/dsh-read-guard   # + pr-gate, attest-chain, mcp-test, janitor, egress-gate, prompt-drift, freeze
 ```
-
-Once the family lands on npm, this becomes `dsh plugin add dsh-trust-suite`
-(the registry form enables the one-command meta-bundle; git subdependencies
-are blocked by pnpm's `blockExoticSubdeps` profile guard, by design).
 
 Each ships its own config in `cordis.patch.yml` and composes without
 interference (different pipeline stages: read-guard observes results,

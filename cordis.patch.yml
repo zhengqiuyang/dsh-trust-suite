@@ -1,0 +1,22 @@
+# Applied when a profile lists this bundle. Each row references a published
+# trust plugin by package name; Node module resolution finds the installed
+# code (lib/index.js) in this package's dependencies.
+- insert:
+    - id: dsh-read-guard
+      name: dsh-read-guard
+    - id: dsh-pr-gate
+      name: dsh-pr-gate
+    - id: dsh-attest-chain
+      name: dsh-attest-chain
+    - id: dsh-mcp-test
+      name: dsh-mcp-test
+    - id: dsh-janitor
+      name: dsh-janitor
+    - id: dsh-egress-gate
+      name: dsh-egress-gate
+    - id: dsh-prompt-drift
+      name: dsh-prompt-drift
+    - id: dsh-freeze
+      name: dsh-freeze
+    - id: dsh-compaction-guard
+      name: dsh-compaction-guard
