@@ -1,6 +1,7 @@
 # dsh-trust-suite — the deterministic trust chain for DeepSeek Harness
 
 > **If this helps you, please give it a star** — it helps others find it. Thanks!
+
 One thesis, three plugins, zero LLM calls in the trust path:
 
 > The dsh plugin ecosystem reviews agents with LLMs — answer reviewers,
