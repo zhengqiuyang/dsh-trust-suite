@@ -27,12 +27,14 @@ channels through which an agent session can go wrong, each gated by a
 deterministic rule engine with its own upstream test suite, Windows+Linux
 CI, and an honest kill-criteria section.
 
+| [dsh-trust-panel](https://github.com/zhengqiuyang/dsh-trust-panel) | what the user **sees** | The plain-language dashboard for all nine channels: one status light, event cards a non-security user can act on, bilingual (zh/en). |
+
 ## Install the family
 
 One command, from npm (v0.3.0+, the whole family in a single meta-bundle):
 
 ```sh
-dsh plugin --profile web add dsh-trust-suite
+dsh plugin --profile web add dsh-trust-suite   # 9 guards + the trust-panel dashboard
 ```
 
 Prefer git checkouts? One command per plugin, all prebuilt (no `allowBuilds`

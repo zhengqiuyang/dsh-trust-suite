@@ -20,3 +20,5 @@
       name: dsh-freeze
     - id: dsh-compaction-guard
       name: dsh-compaction-guard
+    - id: dsh-trust-panel
+      name: dsh-trust-panel

@@ -1,7 +1,7 @@
 {
   "name": "dsh-trust-suite",
-  "version": "0.3.0",
-  "description": "The deterministic trust chain for DeepSeek Harness: read-guard + pr-gate + attest-chain + mcp-test + janitor + egress-gate + prompt-drift + freeze + compaction-guard. Zero LLM calls in the trust path",
+  "version": "0.4.0",
+  "description": "The deterministic trust chain for DeepSeek Harness: read-guard + pr-gate + attest-chain + mcp-test + janitor + egress-gate + prompt-drift + freeze + compaction-guard + the trust-panel dashboard. Zero LLM calls in the trust path",
   "type": "module",
   "license": "MIT",
   "files": [
@@ -20,7 +20,8 @@
     "dsh-prompt-drift": "^0.1.0",
     "dsh-freeze": "^0.1.0",
     "dsh-compaction-guard": "^0.1.0",
-    "dsh-bench-local": "^0.1.0"
+    "dsh-bench-local": "^0.1.0",
+    "dsh-trust-panel": "^0.1.0"
   },
   "repository": {
     "type": "git",
